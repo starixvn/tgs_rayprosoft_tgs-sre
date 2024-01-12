@@ -3,9 +3,9 @@ stages:
 kubectl-test:
   stage: kubectl-test
   before_script:
-    env= "dev"
-    config= "KubeConfig_Raypro_"
-    KUBECINFIG="${config}${env}"
+    env= 'dev'
+    config= 'KubeConfig_Raypro_'
+    KUBECINFIG='${config}${env}'
     echo "$KUBECINFIG"
     export KUBECONFIG=$(!KUBECONFIG)
     echo "config=$KUBECONFIG"
