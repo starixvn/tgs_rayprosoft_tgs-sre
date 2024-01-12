@@ -8,5 +8,6 @@ kubectl-test:
   before_script:
     export KUBECINFIG="${config}${env}"
     eval export KUBECONFIG=$KUBECONFIG
+    echo config=$KUBECONFIG
   script:
     kubectl get pod -n dev
