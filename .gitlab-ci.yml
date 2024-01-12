@@ -1,6 +1,5 @@
 stages:
 - job1
-- job2
 
 job10:
   stage: job1
