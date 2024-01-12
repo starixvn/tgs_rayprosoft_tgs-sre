@@ -3,11 +3,11 @@ stages:
 kubectl-test:
   variables:
     KUBE_ENV: "dev"
-    KUBE_CONF: "$KubeConfig_Raypro_"
+    KUBE_CONF: "KubeConfig_Raypro_"
   stage: kubectl-test
   before_script:
     - |
-      export KUBECONFIG=$KUBE_CONF$KUBE_ENV
+      export KUBECONFIG=$($KUBE_CONF$KUBE_ENV)
       echo "KUBECONFIG is '$KUBECONFIG'"
   script: 
     - kubectl get pod -n dev
