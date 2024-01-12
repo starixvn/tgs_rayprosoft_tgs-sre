@@ -1,0 +1,15 @@
+# https://github.com/rabbitmq/cluster-operator/blob/main/docs/examples/production-ready/rabbitmq.yaml
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: mq
+  namespace: rabbitmq
+spec:
+  replicas: 1
+  persistence:
+    storageClassName: nfs-provisioner
+    storage: 20Gi
+  rabbitmq: 
+    additionalConfig: |
+      default_user=tgs
+      default_pass=TgsP@ssw0rd

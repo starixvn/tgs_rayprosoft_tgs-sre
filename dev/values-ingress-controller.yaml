@@ -1,0 +1,25 @@
+controller:
+  config: 
+    hsts: false
+    otlp-collector-host: otel-svc.observability
+    enable-opentelemetry: "true"
+    opentelemetry-operation-name: "HTTP $request_method $uri"
+    otel-service-name: nginx-ingress-controller
+    enable-real-ip: "true"
+    server-snippet: |
+      real_ip_header CF-Connecting-IP;
+  opentelemetry: 
+    enabled: true
+  service: 
+    type: NodePort
+    externalIPs:
+      - your-external-ip
+    nodePorts:
+      http: 30486
+      https: 30462
+  metrics:
+    enabled: "true"
+    service:
+      annotations:
+        prometheus.io/port: "10254"
+        prometheus.io/scrape: "true"
