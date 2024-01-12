@@ -5,10 +5,11 @@ kubectl-test:
   before_script:
     env= 'dev'
     config= 'KubeConfig_Raypro_'
-    KUBECINFIG='${config}${env}'
-    echo "$KUBECINFIG"
+    KUBECONFIG='${config}${env}'
+    echo "$KUBECONFIG"
     export KUBECONFIG=$(!KUBECONFIG)
     echo "config=$KUBECONFIG"
   script:
     
     kubectl get pod -n dev
+VA
