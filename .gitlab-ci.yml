@@ -10,5 +10,4 @@ job10:
     echo "CI_PROJECT_NAMESPACE_ID	=$CI_PROJECT_NAMESPACE_ID	"
     echo "CI_PROJECT_URL=$CI_PROJECT_URL"
     echo "CI_SERVER_NAME=$CI_SERVER_NAME"
-    echo "kubedonfig=$KubeConfig_Raypro_dev
-"
+    echo "kubedonfig=$KubeConfig_Raypro_dev"
