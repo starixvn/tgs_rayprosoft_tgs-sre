@@ -7,7 +7,7 @@ kubectl-test:
   stage: kubectl-test
   before_script:
     - |
-      export KUBECONFIG=$($KUBE_CONF$KUBE_ENV)
+      export KUBECONFIG=$(!$KUBE_CONF$KUBE_ENV)
       echo "KUBECONFIG is '$KUBECONFIG'"
   script: 
     - kubectl get pod -n dev
