@@ -5,8 +5,11 @@ stages:
 job10:
   stage: job1
   script:
-    echo "ci/cd test!!"	
-job20:
-  stage: job2
-  script:
-    echo "ci/cd test2!!"
+    echo "CI_PROJECT_ID=$CI_PROJECT_ID"	
+    echo "CI_PROJECT_NAME=$CI_PROJECT_NAME"
+    echo "CI_PROJECT_NAMESPACE=$CI_PROJECT_NAMESPACE"
+    echo "CI_PROJECT_NAMESPACE_ID	=$CI_PROJECT_NAMESPACE_ID	"
+    echo "CI_PROJECT_URL=$CI_PROJECT_URL"
+    echo "CI_SERVER_NAME=$CI_SERVER_NAME"
+    echo "kubedonfig=$KubeConfig_Raypro_dev
+"
