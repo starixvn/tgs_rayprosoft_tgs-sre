@@ -9,4 +9,4 @@ kubectl-test:
     echo "KUBECONFIG=$KUBECONFIG"
 
   script:
-    echo "1"
+    kubectl get pod -n dev
