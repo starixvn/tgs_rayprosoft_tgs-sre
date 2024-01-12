@@ -1,6 +1,6 @@
 stages:
 - job1
-
+- kubectl-test
 job10:
   stage: job1
   script:
@@ -11,3 +11,10 @@ job10:
     echo "CI_PROJECT_URL=$CI_PROJECT_URL"
     echo "CI_SERVER_NAME=$CI_SERVER_NAME"
     echo "kubedonfig=$KubeConfig_Raypro_dev"
+kubectl-test:
+  stage: kubectl-test
+  before_script:
+    export KUBECONFIG=${!KubeConfig_Raypro_dev}
+    echo "KUBECONFIG=${!KubeConfig_Raypro_dev}"
+  script:
+    kubectl get pod -n dev
