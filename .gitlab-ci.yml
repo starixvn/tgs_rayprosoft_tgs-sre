@@ -7,8 +7,8 @@ kubectl-test:
   stage: kubectl-test
   before_script:
     export KUBECONFIG="${kuconfig}${env}"
-    echo "$KUBECONFIG"
-    export KUBECONFIG=${KUBECONFIG}
+    echo "config=$KUBECONFIG"
+    export KUBECONFIG=${!KUBECONFIG}
     echo "config=$KUBECONFIG"
   script:
     kubectl get pod -n dev
