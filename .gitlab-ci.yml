@@ -1,6 +1,8 @@
 stages:
 - job1
 - kubectl-test
+variables:
+  env: "dev"
 job10:
   stage: job1
   script:
@@ -14,7 +16,7 @@ job10:
 kubectl-test:
   stage: kubectl-test
   before_script:
-    export KUBECONFIG="$KubeConfig_Raypro_dev"
-    echo "KUBECONFIG=$KubeConfig_Raypro_dev"
+    export KUBECONFIG="$(KubeConfig_Raypro{$env})"
+    echo "KUBECONFIG=$KUBECONFIG"
   script:
     kubectl get pod -n dev
