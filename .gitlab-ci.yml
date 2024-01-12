@@ -7,6 +7,6 @@ kubectl-test:
   stage: kubectl-test
   before_script:
     export KUBECINFIG="${config}${env}"
-    export KUBECONFIG=${!KubeConfig_Raypro_dev}
+    export KUBECONFIG="${!KubeConfig_Raypro_dev}"
   script:
     kubectl get pod -n dev
