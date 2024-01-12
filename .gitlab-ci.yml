@@ -1,0 +1,11 @@
+stages:
+- build
+- deploy
+
+build:
+  script:
+    echo "ci/cd test!!"
+	
+deploy:
+  script:
+    ecgo "ci/cd test2!!"
