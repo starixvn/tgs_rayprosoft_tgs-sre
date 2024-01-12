@@ -5,9 +5,9 @@ variables:
 kubectl-test:
   stage: kubectl-test
   before_script:
-    export config="KubeConfig_Raypro_"
+    export config="$KubeConfig_Raypro_"
     echo config=$config
     export KUBECONFIG="$config"
     echo "KUBECONFIG=$KUBECONFIG"
   script:
-    kubectl get pod -n dev
+    echo "1"
