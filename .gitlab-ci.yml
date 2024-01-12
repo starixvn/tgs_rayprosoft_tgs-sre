@@ -12,4 +12,3 @@ kubectl-test:
   script:
     
     kubectl get pod -n dev
-VA
