@@ -6,8 +6,9 @@ kubectl-test:
   stage: kubectl-test
   before_script:
     export config="KubeConfig_Raypro_"
-    echo config=$config
+    echo "config=$config"
     export KUBECONFIG="$config"
     echo "KUBECONFIG=$KUBECONFIG"
+
   script:
     echo "1"
