@@ -1,8 +1,12 @@
+variables:
+  config: KubeConfig_Raypro_
+  env: dev
 stages:
 - kubectl-test
 kubectl-test:
   stage: kubectl-test
   before_script:
-    export KUBECONFIG="$KubeConfig_Raypro_dev"
+    export KUBECINFIG="${config}${env}"
+    export KUBECONFIG=${!KubeConfig_Raypro_dev}
   script:
     kubectl get pod -n dev
