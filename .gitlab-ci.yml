@@ -6,9 +6,7 @@ variables:
 kubectl-test:
   stage: kubectl-test
   before_script:
-    export KUBECONFIG="${kuconfig}${env}"
-    echo "config=$KUBECONFIG"
-    export KUBECONFIG=${!KUBECONFIG}
-    echo "config=$KUBECONFIG"
+    export KUBECONFIG="Kubeconfig_RayPro_dev"
+    echo "KUBECONFIG=$Kubeconfig_RayPro_dev"
   script:
     kubectl get pod -n dev
