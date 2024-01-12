@@ -8,7 +8,7 @@ kubectl-test:
   before_script:
     export KUBECINFIG="${config}${env}"
     echo "$KUBECINFIG"
-    export KUBECONFIG="${!KUBECONFIG}"
+    export KUBECONFIG=$(!KUBECONFIG)
     echo "config=$KUBECONFIG"
   script:
     
