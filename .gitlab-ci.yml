@@ -4,8 +4,7 @@ stages:
 
 build:
   script:
-    echo "ci/cd test!!"
-	
+    echo "ci/cd test!!"	
 deploy:
   script:
-    ecgo "ci/cd test2!!"
+    echo "ci/cd test2!!"
