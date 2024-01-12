@@ -2,9 +2,11 @@ stages:
 - job1
 - job2
 
-job1:
+job10:
+  stage: job1
   script:
     echo "ci/cd test!!"	
-job2:
+job20:
+  stage: job2
   script:
     echo "ci/cd test2!!"
