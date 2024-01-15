@@ -1,5 +1,8 @@
 stages:
+  - docker-build
+  - deploy-domain
   - deploy
+
 .variables-template: &variables-template
   before_script:
     - >
