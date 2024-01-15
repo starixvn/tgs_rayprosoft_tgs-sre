@@ -7,7 +7,7 @@ deploy_dev:
     - echo "Using KUBECONFIG from GitLab CI/CD variables"
     - kubectl get pod -n dev --kubeconfig=$KubeConfig_Raypro_dev
   only:
-    - dev
+    - main
 
 deploy_stag:
   stage: deploy
