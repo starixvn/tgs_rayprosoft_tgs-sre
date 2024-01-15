@@ -1,13 +1,26 @@
 stages:
-- kubectl-test
-kubectl-test:
-  variables:
-    KUBE_ENV: "dev"
-    KUBE_CONF: "KubeConfig_Raypro_"
-  stage: kubectl-test
-  before_script:
-    - |
-      export KUBECONFIG=$(!$KUBE_CONF$KUBE_ENV)
-      echo "KUBECONFIG is '$KUBECONFIG'"
-  script: 
+  - deploy
+
+deploy_dev:
+  stage: deploy
+  script:
+    - export KUBECONFIG=KubeConfig_Raypro_dev
     - kubectl get pod -n dev
+  only:
+    - main
+
+deploy_stag:
+  stage: deploy
+  script:
+    - export KUBECONFIG=KubeConfig_Raypro_staging
+    - kubectl get pod -n stag
+  only:
+    - stag
+
+deploy_prod:
+  stage: deploy
+  script:
+    - export KUBECONFIG=KubeConfig_Raypro_prod
+    - kubectl get pod -n prod
+  only:
+    - prod
