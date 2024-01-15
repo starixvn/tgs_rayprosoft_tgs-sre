@@ -1,10 +1,12 @@
 stages:
   - deploy
-
+variables:
+  env: dev
+  config: KubeConfig_Raypro_
 deploy_dev:
   stage: deploy
   before_script:
-    export KUBECONFIG=$KubeConfig_Raypro_dev
+    export KUBECONFIG=$($config$env)
   script:
     - kubectl get pod -n dev 
   only:
