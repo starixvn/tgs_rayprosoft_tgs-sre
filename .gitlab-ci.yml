@@ -14,12 +14,15 @@ stages:
         export KUBECONFIG=$KubeConfig_Raypro_prod
       fi
 .docker-build-template: &docker-build-template
+  stage: docker-build
   script: kubectl get ns
 
 .deploy-domain-template: &deploy-domain-template
+  stage: deploy-domain
   script: kubectl get pod -n monitoring
 
 .deploy-template: &deploy-template
+  stage: deploy
   script: kubectl get pod -A |grep viplevel
 
 docker-build-dev:
@@ -28,39 +31,11 @@ docker-build-dev:
   only: 
     - main
 
-docker-build-staging:
-  <<: *docker-build-template
-  <<: *variables-template
-  only: 
-    - staging
-
-docker-build-prod:
-  <<: *docker-build-template
-  <<: *variables-template
-  only: 
-    - prod
-
 deploy-domain-dev:
   <<: *deploy-domain-template
   <<: *variables-template
   only: 
     - main
-
-deploy-domain-staging:
-  <<: *deploy-domain-template
-  needs:
-    - job: docker-build-staging
-      artifacts: true
-  only: 
-    - staging
-
-deploy-domain-prod:
-  <<: *deploy-domain-template
-  needs:
-    - job: docker-build-prod
-      artifacts: true
-  only: 
-    - prod
     
 deploy-dev:
   <<: *deploy-template
@@ -68,22 +43,3 @@ deploy-dev:
   only: 
     - main
 
-deploy-staging:
-  <<: *deploy-template
-  needs:
-    - job: docker-build-staging
-      artifacts: true
-  environment:
-    name: staging
-  only: 
-    - staging
-
-deploy-prod:
-  <<: *deploy-template
-  needs:
-    - job: docker-build-prod
-      artifacts: true
-  environment:
-    name: prod
-  only: 
-    - prod
