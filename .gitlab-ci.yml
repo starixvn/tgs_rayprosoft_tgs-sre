@@ -1,29 +1,86 @@
 stages:
   - deploy
-variables:
-  env: dev
-  config: KubeConfig_Raypro_
-deploy_dev:
-  stage: deploy
+.variables-template: &variables-template
   before_script:
-    - export KUBECONFIG=$(${config}${env})
-  script:
-    - kubectl get pod -n dev 
-  only:
+    - >
+      if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+        export KUBECONFIG=$KubeConfig_Raypro_dev
+      elif [ "$CI_COMMIT_REF_NAME" = "release" ]; then
+        export KUBECONFIG=$KubeConfig_Raypro_staging
+      elif [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        export KUBECONFIG=$KubeConfig_Raypro_prod
+      fi
+.docker-build-template: &docker-build-template
+  script: kubectl get ns
+
+.deploy-domain-template: &deploy-domain-template
+  script: kubectl get pod -n monitoring
+
+.deploy-template: &deploy-template
+  script: kubectl get pod -A |grep viplevel
+
+docker-build-dev:
+  <<: *docker-build-template
+  <<: *variables-template
+  only: 
     - main
 
-deploy_stag:
-  stage: deploy
-  script:
-    - echo "Using KUBECONFIG from GitLab CI/CD variables"
-    - kubectl get pod -n stag --kubeconfig=$KubeConfig_Raypro_staging
-  only:
-    - stag
+docker-build-staging:
+  <<: *docker-build-template
+  <<: *variables-template
+  only: 
+    - staging
 
-deploy_prod:
-  stage: deploy
-  script:
-    - echo "Using KUBECONFIG from GitLab CI/CD variables"
-    - kubectl get pod -n prod --kubeconfig=$KubeConfig_Raypro_prod
-  only:
+docker-build-prod:
+  <<: *docker-build-template
+  <<: *variables-template
+  only: 
+    - prod
+
+deploy-domain-dev:
+  <<: *deploy-domain-template
+  <<: *variables-template
+  only: 
+    - main
+
+deploy-domain-staging:
+  <<: *deploy-domain-template
+  needs:
+    - job: docker-build-staging
+      artifacts: true
+  only: 
+    - staging
+
+deploy-domain-prod:
+  <<: *deploy-domain-template
+  needs:
+    - job: docker-build-prod
+      artifacts: true
+  only: 
+    - prod
+    
+deploy-dev:
+  <<: *deploy-template
+  <<: *variables-template
+  only: 
+    - main
+
+deploy-staging:
+  <<: *deploy-template
+  needs:
+    - job: docker-build-staging
+      artifacts: true
+  environment:
+    name: staging
+  only: 
+    - staging
+
+deploy-prod:
+  <<: *deploy-template
+  needs:
+    - job: docker-build-prod
+      artifacts: true
+  environment:
+    name: prod
+  only: 
     - prod
