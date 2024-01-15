@@ -3,9 +3,10 @@ stages:
 
 deploy_dev:
   stage: deploy
+  before_script:
+    export KUBECONFIG=$KubeConfig_Raypro_dev
   script:
-    - echo "Using KUBECONFIG from GitLab CI/CD variables"
-    - kubectl get pod -n dev --kubeconfig=$KubeConfig_Raypro_dev
+    - kubectl get pod -n dev 
   only:
     - main
 
