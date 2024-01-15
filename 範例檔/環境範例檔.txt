@@ -1,0 +1,46 @@
+##環境設定檔
+stages:
+  - docker-build
+  - deploy-domain
+  - deploy
+
+.variables-template: &variables-template
+  before_script:
+    - >
+      if [ "$CI_COMMIT_REF_NAME" = "main" ]; then
+        export KUBECONFIG=$KubeConfig_Raypro_dev
+      elif [ "$CI_COMMIT_REF_NAME" = "release" ]; then
+        export KUBECONFIG=$KubeConfig_Raypro_staging
+      elif [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        export KUBECONFIG=$KubeConfig_Raypro_prod
+      fi
+.docker-build-template: &docker-build-template
+  stage: docker-build
+  script: kubectl get ns
+
+.deploy-domain-template: &deploy-domain-template
+  stage: deploy-domain
+  script: kubectl get pod -n monitoring
+
+.deploy-template: &deploy-template
+  stage: deploy
+  script: kubectl get pod -A |grep viplevel
+
+docker-build-dev:
+  <<: *docker-build-template
+  <<: *variables-template
+  only: 
+    - main
+
+deploy-domain-dev:
+  <<: *deploy-domain-template
+  <<: *variables-template
+  only: 
+    - main
+    
+deploy-dev:
+  <<: *deploy-template
+  <<: *variables-template
+  only: 
+    - main
+
