@@ -4,7 +4,7 @@ stages:
 deploy_dev:
   stage: deploy
   script:
-    - export KUBECONFIG=KubeConfig_Raypro_dev
+    - export KUBECONFIG="KubeConfig_Raypro_dev"
     - kubectl get pod -n dev
   only:
     - main
@@ -12,7 +12,7 @@ deploy_dev:
 deploy_stag:
   stage: deploy
   script:
-    - export KUBECONFIG=KubeConfig_Raypro_staging
+    - export KUBECONFIG="KubeConfig_Raypro_staging"
     - kubectl get pod -n stag
   only:
     - stag
@@ -20,7 +20,7 @@ deploy_stag:
 deploy_prod:
   stage: deploy
   script:
-    - export KUBECONFIG=KubeConfig_Raypro_prod
+    - export KUBECONFIG="KubeConfig_Raypro_prod"
     - kubectl get pod -n prod
   only:
     - prod
