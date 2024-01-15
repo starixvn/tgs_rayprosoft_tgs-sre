@@ -6,7 +6,7 @@ variables:
 deploy_dev:
   stage: deploy
   before_script:
-    - export KUBECONFIG=${config}${env}
+    - export KUBECONFIG=$(!${config}${env})
   script:
     - kubectl get pod -n dev 
   only:
