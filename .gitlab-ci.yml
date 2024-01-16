@@ -4,7 +4,7 @@ stages:
   - deploy
 .variableaa: &variableaa
   before_script:
-    config="KubeConfig_Raypro_dev"
+    config="$KubeConfig_Raypro_dev"
     export KUBECONFIG=$config
 .variables-template: &variables-template
   before_script:
