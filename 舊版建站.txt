@@ -1,0 +1,12 @@
+建站流程:
+如果是比較舊的版本:
+gitlab-> create-lobby 
+RUN PIPELINE依照TST給的變數設定
+跑完之後到tgs-affiliate-v2 新增brands_prod.yaml
+
+新增AG要至JENKINS
+Support/job/create-agent-v2/
+build with patameters
+然後至manage jenkins->managed files 找到對應的FILE新增
+EX: 今天新增T1的v227 就要再lobby_t1_components=後面新增,lobby-v227
+
