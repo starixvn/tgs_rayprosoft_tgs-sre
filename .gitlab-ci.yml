@@ -2,7 +2,10 @@ stages:
   - docker-build
   - deploy-domain
   - deploy
-
+.variableaa: &variableaa
+  before_script:
+    KUBECONFIG="$KubeConfig_Raypro_dev"
+    export KUBECONFIG=$KUBECONFIG
 .variables-template: &variables-template
   before_script:
     - >
@@ -27,7 +30,7 @@ stages:
 
 docker-build-dev:
   <<: *docker-build-template
-  <<: *variables-template
+  <<: *variableaa
   only: 
     - main
 
