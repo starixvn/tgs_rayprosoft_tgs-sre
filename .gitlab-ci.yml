@@ -15,7 +15,7 @@ stages:
       fi
 .docker-build-template: &docker-build-template
   stage: docker-build
-  script: kubectl get pod -n dev
+  script: kubectl get deployment -n dev
 
 .deploy-domain-template: &deploy-domain-template
   stage: deploy-domain
