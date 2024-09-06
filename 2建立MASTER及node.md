@@ -97,3 +97,8 @@ Then you can join any number of worker nodes by running the following on each as
 
 kubeadm join 192.168.50.74:6443 --token j1xxpn.0pws5tmoiclmycfq \
 	--discovery-token-ca-cert-hash sha256:f3aa4c2905bb586e4e45c8dc6003394857b8c8f3458281e60f888ea2ebfeb65c ##workernode加入master節點指令
+
+
+## 產生 discovery-token-ca-cert-hash 所需要的 token
+openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
+
